@@ -24,7 +24,7 @@ Globals:
       Role: !Ref CodeDeployRole
 
 Resources:
-  GetHelloWorld:
+  GetNodes:
     Type: AWS::Serverless::Function
     Properties:
       Handler: main
@@ -34,11 +34,26 @@ Resources:
         - LambdaExecutionRole
         - Arn
       Events:
-        GetEvent:
+        GetNodes:
           Type: Api
           Properties:
-            Path: /
-            Method: get
+            Path: /node
+            Method: GET
+        GetNode:
+          Type: Api
+          Properties:
+            Path: /node/{nodeId}
+            Method: GET
+        CreateNode:
+          Type: Api
+          Properties:
+            Path: /node
+            Method: POST
+        DeleteNode:
+          Type: Api
+          Properties:
+            Path: /node/{nodeId}
+            Method: DELETE
   LambdaExecutionRole:
     Description: Creating service role in IAM for AWS Lambda
     Type: AWS::IAM::Role
